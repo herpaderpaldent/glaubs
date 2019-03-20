@@ -1,4 +1,4 @@
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from municipalities.models import Municipality
 import csv
 
@@ -17,21 +17,12 @@ class Command(BaseCommand):
                 if idx == 0:
                     continue
 
-                #print(row)
-
                 canton = row[0]
                 name = row[2]
                 bfs_number = row[4]
                 zip_code = row[7]
-                Municipality.objects.create(canton=canton, name=name, bfs_number=bfs_number, zip_code=zip_code)
-
-#        for poll_id in options['poll_id']:
-#            try:
-#                poll = Poll.objects.get(pk=poll_id)
-#            except Poll.DoesNotExist:
-#                raise CommandError('Poll "%s" does not exist' % poll_id)
-#
-#            poll.opened = False
-#            poll.save()
-#
-#            self.stdout.write(self.style.SUCCESS('Successfully closed poll "%s"' % poll_id))
+                Municipality.objects.create(
+                    canton=canton,
+                    name=name,
+                    bfs_number=bfs_number,
+                    zip_code=zip_code)

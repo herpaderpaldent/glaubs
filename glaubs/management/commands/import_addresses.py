@@ -1,4 +1,4 @@
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from municipalities.models import Municipality
 import csv
 
@@ -24,14 +24,16 @@ class Command(BaseCommand):
                 place = row[4]
 
                 found = False
-                municipalities = Municipality.objects.filter(zip_code=zip_code, name=place)
+                municipalities = \
+                    Municipality.objects.filter(zip_code=zip_code, name=place)
                 for m in municipalities:
                     found = True
                     self._update_municipality(address, m, row)
 
                 if not found:
                     print(u'Not found {} {}'.format(zip_code, place))
-                    municipalities = Municipality.objects.filter(zip_code=zip_code)
+                    municipalities = \
+                        Municipality.objects.filter(zip_code=zip_code)
                     for m in municipalities:
                         print(u'* Updating {} {}'.format(m.zip_code, m.name))
                         self._update_municipality(address, m, row)

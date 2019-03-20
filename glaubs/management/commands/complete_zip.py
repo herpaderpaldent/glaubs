@@ -1,4 +1,4 @@
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from municipalities.models import Municipality
 import csv
 
@@ -22,6 +22,14 @@ class Command(BaseCommand):
                 bfs_number = row[2]
                 zip_code = row[0]
                 try:
-                    Municipality.objects.get(canton=canton, name=name, bfs_number=bfs_number, zip_code=zip_code)
+                    Municipality.objects.get(
+                        canton=canton,
+                        name=name,
+                        bfs_number=bfs_number,
+                        zip_code=zip_code)
                 except Municipality.DoesNotExist:
-                    Municipality.objects.create(canton=canton, name=name, bfs_number=bfs_number, zip_code=zip_code)
+                    Municipality.objects.create(
+                        canton=canton,
+                        name=name,
+                        bfs_number=bfs_number,
+                        zip_code=zip_code)
